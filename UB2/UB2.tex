@@ -1,0 +1,61 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+
+\setlength{\parindent}{15pt}
+
+\def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
+\newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
+
+
+\title{Übungsblatt 2}
+\author{Ali Bektas 588063 \and Julian Kremer 562717 \and Ruben Dorfner 550204}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 10}
+\vspace{10px}
+\textbf{a)} Wir zeigen dass die Aussage für $i=n$ gilt:
+
+\[ |S_n(M,x)| \leq |S_{\ceil{\frac{3n}{2}}}(M,x)| \leq \frac{t(y)}{n}  \] 
+Wir definieren $ a:=  |S_{\ceil{\frac{3n}{2}}}(M,x)|  $ . Dann:
+ 
+\begin{align*}
+	&\implies a \cdot n  \leq t(y) = \sum_{j=0}^{a-1} 3n-jk+2 = 3an - \frac{a^2k + ak}{2} + 2a \\
+	&\implies \frac{a^2k +ak}{2} \leq 2an+2a \\
+	&\implies ak +1 \leq 2n +1\\
+\end{align*}
+
+$S_{\ceil{\frac{3n}{2}}}(M,x) $ hat eine Länge kleiner als 2n weil es (angenommen wir speichern nur eine Information 'also $k=1$, für  $k>1$ ist es noch leichter zu sehen) in seiner Überquerungsfolge  $\frac{3n}{2k}$ Informationen aus beiden Seiten enthält.
+
+\vspace{10px}
+
+\textbf{b)} Das Wort lässt sich folgendermaßen beschreiben. Aus der Anzahl der Zustände lässt sich die Anzahl der speicherbaren Zeichen ablesen. Demnach wissen wir welche Glieder der Überquerungsfolge zu lesen sind. Man braucht nicht alle Glieder zu betrachten denn wir sollen nur wissen welche Informationen aus der linken Seite des Wortes x ( also aus y) an die rechten Seite des Wortes x (d.h $y^{\textit{R} }$) überträgt wird. Sobald wir genug viele Glieder gelesen haben können wir y nachbilden.
+
+Falls es weniger als k (\# der Speicher) Elemente gibt können wir immer noch y nachbilden. Sei $q_i$ der Zustand , der sich M nach dem Lesen befindet. Seien Zustände so konstruiert dass sie auf Binärzahlen abbilden. Dann ergäbe sich die gelesene Sequenz aus dem Zustand.
+
+
+\vspace{10px}
+
+\textbf{c)} Aus a wissen wir  $  |S_n(M,x)|  \leq \frac{t(y)}{n} $ . Wir haben auch festgestellt , dass wir n und i kennen müssen um y später nachbilden zu können.$ i$ ist eine Zahl zwischen $n$ und $2n$ .  Wir können diese Zahl nur bestehend aus seinem Offset zu n speichern. Das Speichern von n und i verlangt also höchstens $log 2n = log 2 + log n = 1 + log n$ viele Speicherplätze. Dann :
+
+\begin{align*} 
+	&K(y) \leq c  \cdot (S_i(M,x) + log 2n \leq  \\
+	&c \cdot ( S_i(M,x) + log 2 \cdot log |y| ) \leq \\
+	& c \cdot log 2( S_i(M,x) + log 2 \cdot log |y|) \\
+	& c' \cdot  ( \frac{t(y)}{|y|} + log |y|)
+\end{align*}
+
+Die gesuchte Konstante ist also $c' \geq log 2$
+
+\vspace{10px}
+\textbf{d)} Bei b haben wir festgestellt dass wir y bzgl. $M , S_i(M,x)  ,n und i$ beschreiben können. Diese Beschreibung ist auf jeden Fall größer als $K(y)$. Wir wissen auch (nach Aufgabe 9(c)) dass es $\forall n \geq \exists y : |y| = n , K(y) \geq n$ . Dann folgt:
+\begin{align*} 
+	& n \leq K(y) \leq  log(2) \cdot( \frac{t(y)}{n} - log(n))  \\
+	& \implies n \cdot ( \frac{n}{log(2)} - log(n)) \leq t(y) \\
+	& \implies t(y) \in \Omega(n^2)
+\end{align*}
+
+\end{document}  
