@@ -1,0 +1,61 @@
+\documentclass{article}
+
+\usepackage{amsmath , amsthm}
+
+
+\setlength{\parindent}{15pt}
+
+\def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
+\newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
+
+
+\title{Übungsblatt 3}
+\author{Ali Bektas 588063 \and Julian Kremer 562717 \and Ruben Dorfner 550204}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 16}
+\vspace{10px}
+
+Wir zeigen zunächst die Aussage $A \in NE \Leftrightarrow NP$.\\
+$\implies :$
+Sei A eine Sprache  $ \subset \{0,1\}^*$. Es gelte $A \in NE$.
+
+\begin{proof}
+
+\[ A \in NE  \Leftrightarrow \exists N \in TM_{NTM} : N(x) , max\{ i | K_{start} \rightarrow^i_N K_{end}\}  \leq 2^{O(|x|)} \\
+\]
+
+Wir betrachten , 
+was es für ein Wort aus tally(A) bedeutet , in NP-Time entschieden zu werden. 
+Sei $n$ die Länge eines beliebigen Wortes aus  A. Dann zum Teil wegen der vorangestellten Eins und zum Teil wegen des exponentiellen Wachstums der Länge bei der Umwandlung von Binär- zu Unärdarstellung , lässt sich die Länge des Wortes tally(x) bzgl. x wie folgt erklären:
+
+\begin{align}
+2^{|x|} \leq |tally(x)| \leq 2^{|x|+1}
+\end{align}
+
+\vspace{30px}
+\textit{ Warum habe ich sowas geschrieben? Stellt euch vor : Wir haben eine Binärzahl 1001 => 9. Wir stellen eine 1 voran. So wird die Zahl 11001 => $2^4 + Alte Zahl = 2^|x| + Alte Zahl $. Den Rest kriegt ihr hin.}
+\vspace{30px}
+
+
+Wir wollen zeigen $ tally(A) \in NP $.  Dann bedeutet das in Anbetracht des (1) , dass es eine NTM N' geben muss , so dass sie tally(A) innerhalb von $NTIME(poly(n))$ entscheidet. Wir schreiben diese Aussage bzgl (1) um zu: $NTIME(poly(2^{|x| +1})) = NTIME(2^{c\cdot|x|+c}) = NTIME(2^{O(|x|)})$ wobei $x \in A$.
+
+Das zuletzt hergeleitete ist der linken Seite gleich , somit ist diese Richtung bewiesen.
+
+Die andere Richtung ist vollkommen analog und die Aussage$A \in E \Leftrightarrow P$ ist nur eine schärfere Form der bewiesenen Aussage.
+
+Nun sei A so eine Sprache dass für sie gilt : $A \in NE  \land  A\notin  E$. Dann:
+
+\[ ( (A \notin E \implies tally(A) \notin P) \land (A \in NE \implies tally(A) \in NP) ) \implies P \neq NP \] 
+
+\end{proof}
+
+\#TODO
+Man muss noch erwähnen warum die Umwandlungsmechanismen von Binär zu Unär und umgekehrt keine Rolle für die Laufzeit spielt.(Weil sie einfach sind). Dann ist diese Aufgabe auch fertig.
+
+
+
+
+\end{document}  
