@@ -1,0 +1,250 @@
+\documentclass{article}
+
+
+\author{Ali Bektas}
+\title{Complexity Theory - Notes}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+
+
+\usepackage[toc , page ]{appendix}
+\usepackage{hyperref}
+	\hypersetup{
+	    colorlinks=false,
+	    linkcolor=blue,
+	    filecolor=green,      
+	    urlcolor=red,
+	}
+	\urlstyle{same}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
+\newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
+\newcommand{\floor}[1]{\mathify{\left\lfloor {#1}\right\rfloor}}
+
+
+\begin{document}
+	\maketitle
+	\newpage
+	\tableofcontents
+	\newpage
+
+
+	\section{Grundlegendes}
+	
+	\begin{definition}
+		Für eine Sprache $A \subset \Sigma^* $ ist die charakteristische Funktion $\chi_A \colon \Sigma^* \rightarrow \{0, 1\}$ wie folgt definiert:
+		\[
+			\chi_A = \begin{cases}
+					1 &, x \in A \\
+					0 &, x \notin A.
+				\end{cases}
+		\]
+	\end{definition}
+
+\section{Grundlegende Beziehungen}
+	\begin{definition} \label{complexity_function}
+		Eine monotone Funktion $f \colon \mathbb{N} \rightarrow \mathbb{N}$ heißt \textbf{echte Komplexitätsfunktion} falls es einen Transducer M gibt mit\\
+		\begin{itemize}
+			\item $M(x) = 1^{f(|x|)}$
+			\item $space_M(x) = O(f(|x|))$ und
+			\item $time_M(x) = O(f(|x|)+|x|)$.
+		\end{itemize}
+	\end{definition}
+	
+
+\section{Hierarchiesätze}
+	
+	
+	\subsection{Unentscheidbarkeit mittels Diagonalisierung}
+
+	Wir verwenden eine Kodierung , um die TMs zu kodieren. Die 
+	Kodierung einer TM M wird durch $ \langle M \rangle $ bezeichnet. Wir können auch jedem Binärstring $w$ eine TM $M_w$ wie folgt zuordnen:
+		\[ M_w = \begin{cases}
+				M &, \langle M \rangle = w \\
+				M'&, sonst.
+				\end{cases}
+		  \]
+  	M' ist dabei eien beliebig aber fest gewählte TM. Für $M_w$ schreiben wir auch $M_i$ , wobei $i$ die Zahl mit der Binärdarstellung 1$w$ ist.
+
+  	\begin{theorem}[Die Unentscheidbarkeit der Diagonalsprache] \label{UderDS}: Diagonalsprache ist semi-entscheidbar aber nicht entscheidbar.
+  		\[ 
+  			D = \{ \langle M_i \rangle | M_i  \textrm{ist eine DTM , die die Eingabe} x_i \textrm{akzeptiert.} \} 
+		\]
+
+  		Hierbei ist 
+  		\[ 
+  			x_1 = \epsilon x_2=0 , x_3=1 , x_4=00 , \dots 
+		\] 
+		die Folge aller Binärstring in lexikografischer Reihenfolge.\\
+
+		Angenommen , wir haben eine Tabelle wo alle semi-entscheidbaren Sprachen drin sind und die Spalten dieser Matrix aus aller Wörter in lexi. Reihenfolge bestehen. Wenn $\bar{D}$ semi-entscheidbar wäre , würden wir sie in dieser Matrix finden also : 
+		\[
+			L(M_d) = \bar{D} 
+		\]
+
+		Da diese Sprache Komplement zu der Diagonalen dieser Matrix ist ist muss es einen Eintrag geben wo es widersprüchlich zu sein scheint. Das ist die Idee.
+
+	\end{theorem}
+
+	\begin{theorem}
+		:Für jede berechenbare Funktion $g \colon \mathbb{N} \leftarrow \mathbb{N} $ existiert eine Sprache $D_g \notin DTIME(g(n))$.
+
+		Sei\\
+		\[
+			D_g = \{ \langle M_i \rangle | M_i \textrm{ist eine DTM , die die Eingabe} x_i \\ \textrm{in} \leq g(|x_i|) \textrm{Schritten akzeptiert.} \}
+		\]
+
+		$D_g$ ist entscheidbar : Prüfe ob $x_i$ mittels $M_i$ in $ \leq g(|x_i|)$ Zeit entscheidbar ist.\\
+
+		\dots Unter der Annahme , dass $D_g \in DTIME(g(n))$ ist , existiert eine $g(n)$-zeitbeschränkte DTM $M_d$ die das Komplement von $D_g$ entscheidet.
+
+		\[
+			L(M_d) = \bar{D_g} 
+		\]
+
+		Die Idee ist also dieselbe wie im obigen Satz.
+	\end{theorem}
+
+	\begin{theorem}[Gap-Theorem]
+		Es gibt eine berechenbare Funktion $g:\mathbb{N} \rightarrow \mathbb{N}$ mit
+
+		\[
+			DTIME(2^{g(n)}) = DTIME(g(n))
+		\]
+
+		
+		Wir definieren $g(n) \geq n+2$ so , dass für $2^{g(n)}$-zeit. DTM M gilt: \footnote{Warum ist dies wichtig?.}
+		\[ 
+			time_M(x) \leq g(|x|) \textrm{für fast alle Eingabe} x. 
+		\]
+
+		Wir definieren ein Prädikat
+
+		\[
+			P(n,t) : t \geq n+2 \text{ und für } k= 1, \dots , n \text{ und alle } x \in \Sigma_k^n \text{ gilt: }
+			time_{M_k}(x) \notin \lbrack t+1 , 2^t \rbrack.
+		\]
+		
+		\marginpar{Ob alle Wörter der Länge n durch k verschiedene Maschinen  \textbf{nicht} in $[t+1,2^t]$ Zeit erkannt werden.}
+		
+		Hierbei bezeichnet $\Sigma_k $ das Eingabealphabet von $M_k$. Da für jedes n alle. Da für jedes n alle
+
+		\[
+			t \geq max \{ time_{M_k}(x) | 1 \leq k \leq n , x \in \Sigma_k^n , M_k(x)  \textrm{hält} \}
+		\]
+
+		das Prädikat P(n,t) erfüllen , können wir g(n) wie folgt induktiv definieren :
+
+			\[ 
+				g(n) = 
+					\begin{cases}
+						2 &, n=0 \\
+						min\{ t \geq g(n-1) + n | P(n,t) \} &, n > 0 
+					\end{cases} 
+			\]
+
+		Da P entscheidbar ist , ist g berechenbar.
+
+		Um zu zeigen , dass jede Sprache $ L \in DTIME(2^{g(n)})$ bereits in DTIME(g(n)) enthalten ist , sei
+		$M_k$ eine beliebige $2^{g(n)}$-zeitbeschränkte DTM mit $L(M_k) = L$. Dann muss $M_k$ alle Eingaben x der Länge $n \geq k $ in Zeit $time_{M_k}(x)\leq g(n)$ entscheiden da andernfalls , P(n,g(n)) wegen $time_{M_k}(x) \in [g(n) + 1 , 2^{g(n)}] $ verletzt wäre. Folglich ist $L \in DTIME(g(n))$ da die endlich vielen Eingaben x der Länge n < durch table-lookup in Zeit $n+2 \leq g(n)$ entscheidbar sind.
+
+	\end{theorem}
+	
+	\subsection{Zeit- und Platzhierarchiesätze}
+	
+	Um $D_g$ zu entscheiden , müssen wir einerseits die Zeitschranke $g(|x_i|) $ berechnen und andererseits $M_i(x_i)$ simulieren. Wenn wir voraussetzen dass g eine echte Komplexitätsfunktion (s. \ref{complexity_function} ) ist , lässt sich $g(|x|)$ effizient berechnen. Für die zweite Aufgabe benötigen wir eine möglichst effiziente universelle TM.
+	
+	\begin{theorem}[Die Simulierung von $M_i(x_i)$ bei einer univ.  TM] \label{35}
+	Es gibt eine universelle 3-DTM U , die für jede DTM M und jedes $x\in {0 ,1}^*$ bei Eingabe $\langle M , x \rangle$ eine Simulation von M bei Eingabe in Zeit $O(|\langle M \rangle|(time_M(x))^2) $ und Platz $O( | \langle M \rangle | space_M(x))$ durchführt und dasselbe Ergebnis liefert.
+	\end{theorem}
+	\begin{proof}
+		Betrachte folgende Offline-3-DTM U : \\
+	\par{Initialisierung:}U überprüft bei einer Eingabe $w\#x$ zuerst , ob $w$ die Kodierung $\langle M \rangle$ k-DTM M ist. Falls ja , erzeugt U die Startkonfiguration $K_x$ von M bei Eingabe x, wobei sie die Inhalte von k übereinander liegenden Feldern der Bänder von M auf ihrem 2. Band in je einem Block von kb , \\$b=\ceil{log_2(||Q|| + ||\Gamma|| + 6)} $ , Feldern speichert und den aktuellen Zustand von M zusammen mit den gerade von M gelesenen Zeichen auf ihrem 3. Band notiert. Hierfür benötigt M' Zeit $O(kbn) = O(n^2)$
+	\par{Simulation:} U simuliert jeden Rechenschritt von M wie folgt: Zunächst inspiziert U die auf dem 1. Band gespeicherte Kodierung von M , um die durch den Inhalt des 3. Bands bestimmte Aktion von M zu ermitteln. Diese führt sie sodann auf dem 2. Band aus und aktualisiert dabei auf dem 3. Band den Zustand und die gelesenen Zeichen von M. Insgesamt benötigt U für die Simulation eines Rechenschrittes von M  Zeit $O(kbg(n)) = O(n \cdot g(n))$ 
+	\end{proof}
+	
+	\begin{corollary}{Zeithierarchiesatz\\}
+	Für jede echte Komplexitätsfunktion $g(n) \geq n+2$ gilt: 
+	\[
+	DTIME(n \cdot g(n)^2) - DTIME(g(n)) \neq \emptyset
+	\]
+	\end{corollary}
+
+	\begin{proof}
+		G.z.z : $D_g$ ist für jede Komplexitätsfunktion \ref{complexity_function} $g(n) \geq n+2 $ in Zeit $O(n \cdot g^2(n))$ entscheidbar. Betrachte folgende 4-DTM M'. M' überprüft bei einer Eingabe x der Länge n zuerst , ob x die Kodierung $\langle M \rangle $ einer k-DTM M ist. Falls ja , erzeugt M' auf dem 4. Band den String $1^{g(n)}$  in Zeit $O(g(n))$ und simuliert M(x) wie im Beweis von Theorem \ref{35}. Dabei verminder M' die Anzahl der Einsen auf dem 4. Band nach jedem simulierten Schritt von M(x) um 1. M' bricht die Simulation ab , sobald M stoppt oder der Zähler auf Band 4 den Wert 0 erreicht. M' hält genau dann im Zustand $q_{ja}$ wenn die Simulation von M im Zustan $q_{ja}$ endet. Nun ist leicht zu sehen , dass M' $O(n\cdot g(n)^2)$-zeitbeschränkt ist und die Sprache $D_g $entscheidet. 	
+	\end{proof}
+
+	\begin{corollary}
+		\[
+		 	P \subsetneq E \subsetneq EXPSPACE
+		\]
+	\end{corollary}
+
+	\begin{proof}
+		Folgt unmittelbar aus dem vorigen Korollar
+	\end{proof}
+
+	\begin{theorem}
+		Sei $f(n) \geq n+2$ eine echte Komplexitätsfunktion und gelte
+
+		\[
+			\limsup\limits_{n\rightarrow\infty} \frac{g(n) \cdot log g(n)}{f(n)} = 0 
+		\]
+
+		Dann ist
+
+		\[
+			DTIME(f(n)) / DTIME(g(n)) \neq \emptyset
+		\]
+
+		Für $g(n)=n^2$ erhalten wir beispielsweise die echten Inklusionen $DTIME(g(n)) \subsetneq DTIME(f(n))$ für die Funktionen $f(n)=n^2 , n^2log^2n$.
+	\end{theorem}
+
+	\begin{theorem}{Platzhierarchiesatz}: Sind $g(n),f(n) \geq 2$ und ist $f$ eine echte Komplexitätsfunktion \label{complexity_function} mit
+
+		\[ 
+			\liminf\limits_{n \rightarrow \infty} \frac{g(n)}{f(n)} = 0
+		\]
+
+		dann ist 
+
+		\[
+			DSPACE(f(n))/DSPCAE(g(n)) \neq \emptyset
+		\]
+
+		Damit lässt sich im Fall $g(n) \leq f(n) $ die Frage , ob die Inklusion von $DSPACE(g(n))$ in $DSPACE(f(n))$ echt ist , eindeutig beantworten: Sie ist genau dann echt , wenn $\liminf\limits_{n \rightarrow \infty} g(n)/f(n) = 0  $ ist , da andernfalls $f(n) = O(g(n)) $ ist und somit beide Klassen gleich sind. 
+	\end{theorem}
+
+	\begin{corollary}
+		\[
+		L \subsetneq L^2 \subsetneq DCSL \subsetneq CSL \subsetneq PSPACE \subsetneq ESPACE \subsetneq EXPSPACE.
+		\]
+	\end{corollary}
+
+	\section{Reduktionen}
+
+	\subsection{Logspace-Reduktionen}
+
+	\begin{definition}[Logspacereduktion] Seien A und B Sprachen. A ist auf B \textbf{logspacereduizerbar} falls eine Funktion $f \in FL$ existiert , so dass für alle $x \in \Sigma^*$ gilt , 
+		\[
+			x \in A \iff f(x) \in B.
+		\]
+	\end{definition}
+
+	\begin{lemma}
+		\[ FL \subset FP \]
+	\end{lemma}
+	\begin{proof}
+		Sei $f \in FL $ und sei M ein logaritmisch platzbeschränkter Transducer der f berechnet. Da M bei einer Eingabe der Länge n nur $2^{O(log(n))}$ verschiedene Konfigurationen einnehmen kann , ist M dann auch polynomiell zeitbeschränkt.
+		
+	\end{proof}
+		
+\end{document}

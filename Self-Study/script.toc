@@ -1,0 +1,7 @@
+\contentsline {section}{\numberline {1}Grundlegendes}{3}{section.1}% 
+\contentsline {section}{\numberline {2}Grundlegende Beziehungen}{3}{section.2}% 
+\contentsline {section}{\numberline {3}Hierarchies\IeC {\"a}tze}{3}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Unentscheidbarkeit mittels Diagonalisierung}{3}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}Zeit- und Platzhierarchies\IeC {\"a}tze}{5}{subsection.3.2}% 
+\contentsline {section}{\numberline {4}Reduktionen}{6}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}Logspace-Reduktionen}{6}{subsection.4.1}% 

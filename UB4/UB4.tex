@@ -1,0 +1,60 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{listings}
+
+\begin{document}
+	
+	\section*{Aufgabe 21}
+		\subsection*{a)}
+			z.z : K ist \textbf{E}-vollständig.
+
+			\subsubsection*{K ist E-hart}
+				Sei L eine bel. Sprache mit $L \in \textbf{E}$. Da L eine Sprache in \textbf{E} ist gibt es eine DTM M. Dann gilt: 
+
+					\[
+						\exists c \forall x \in L time_M(x) \leq 2^{c \cdot |x| + c}
+					\]
+
+				Sei M' eine andere DTM die f berechnen soll. M' bekommt die Eingabe von M als ihre Eingabe und dann schreibt sie $\langle M \rangle \# x \# 1^{c \cdot |x| + c}$ auf das Ausgabeband. Es ist offenbar dass $f \in \textbf{FL}$ denn das Erstellen von der Sequenz von Einsen keine Berechungsschritte am Arbeitsband benötigt. 
+
+			\subsubsection*{$K \in E$ })
+				Wenn K in E liegen sollte , dann müsste es eine DTM geben , die E-zeitbeschränkt ist. 
+				Betrachte hierzu eine universelle 5-DTM U.Die ersten 3 Bänder haben dieselben Arbeitweisen wie sie im Satz 35 beschrieben sind. Das vierte Band wird zunächst mit den Einsen  , die die Zeitschranke von M bei Eingabe x beschreiben , befüllt. Das fünft Band dient als Binärzähler. 
+				Bei jeder Aktualisierung (damit gemeint das , was im Satz 35 beschrieben ist.) bewegt sich der Lesekopf am 4. Band.Wenn Binärzähler eine neue Stelle am Band erstellt , bewegt sich der Lesekopf am 5-ten Band ein Schritt nach links.
+
+				Nach Satz 35 gilt dann:
+				
+				\begin{align*}
+					time_U(x) &\in 
+					O(| \langle M \rangle | (time_M(x))^2) &\subset
+					O(| \langle M \rangle | (2^(c \cdot |x| + c))^2) &\subset
+					\textbf{E}
+				\end{align*} 
+
+		\subsection*{b)}
+			Sei S eine K-harte Sprache.
+
+			\subsubsection{\rightarrow}
+				Sei L eine beliebige Sprache mit $L \in E$ und $L \leq_m^{log} K$.
+				Betrachte folgende Aussage:
+					\[
+					K-hart \iff \forall L \in E \exists f \in FL \forall x \in L x \in L \iff f(x) \in K.
+					\]
+
+				Wir nehmen eine beliebige Sprache $L \in EXP\textbackslash E$. Wir benutzen die Konstruktion aus Aufgabe 19 und dadurch wandeln wir eine beliebige Sprache L zu einer entsprechenden Sprache $L' \in \textbf{E}$
+				um. Die Umwandlungsfunktion ist offenbar in \textbf{FL}.
+
+				Da es eine E-harte Sprache gibt , sind wir fertig.
+			\subsubsection{\leftarrow}
+				Trivial.
+		\subsection*{c)}
+			Wir nehmen eine der Zielsprachen aus (b) und entfernen die \#-Zeichen. Die Sprache ist dann wieder in \textbf{EXP.}
+
+	\section*{Schluss}
+		Wir sind fertig denn E ist nicht unter $\leq_m^{log}$ abgeschlossen wobei NP ist.
+
+
+
+
+\end{document}
