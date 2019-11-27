@@ -24,6 +24,8 @@
 \newtheorem{definition}{Definition}[section]
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}[theorem]{Example}
+
 
 \def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
 \newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
@@ -58,6 +60,7 @@
 			\item $time_M(x) = O(f(|x|)+|x|)$.
 		\end{itemize}
 	\end{definition}
+
 	
 
 \section{Hierarchiesätze}
@@ -247,4 +250,100 @@
 		
 	\end{proof}
 		
+	\begin{example}
+		Reduktion des Hamiltoskreisproblems (s. Definition {\ref{hamiltonian_path}) auf Erfüllbarkeitsproblem SAT.
+		Hat G einen Hamiltonskreis so sollte eine bool. Formel F erfüllbar sein.
+
+		Wir konstruieren $F_G$ über den Variablen $x_{1,1}, \dots , x_{n_n}$ , wobei $x_{i,j}$ für die Aussage steht , dass Knoten $j \in V = {1, \dots , n} $ in der Rundreise an der i-ter Stelle besucht wird. Betrachte nun folgende Klauseln.
+
+			\begin{itemize}
+				\item An der i-ten Stelle wird mindestens ein Knoten besucht
+				\item An der i-ten Stelle wird \textbf{höchstens} ein Knoten besucht
+				\item Jeder Knoten j wird mindestens einmal besucht.
+				\item Für $(i,j) \notin E $ wird Knoten j nicht unmitttelbar nach Knoten i besucht 
+			\end{itemize}
+
+		Im Skript wird betont , dass diese Klauseln eine bijektive Funktion bilden.
+	\end{example}
+
+	\begin{lemma}
+		\begin{enumerate}
+			\item Die $\leq_m^{log}$ - Reduzierbarkeit ist reflexiv und transitiv.
+			\item Die Klassen L , NL ,co-NP , PSPACE, EXP und EXPSPACE sind unter $\leq$ abgeschlossen.
+			\item Sie L vollständig für eine Klasse C , die unter $\leq$ abgeschlossen ist. Dann gilt 
+				\[
+					C = \{ A | A \leq L\}.
+				\]
+		\end{enumerate}
+	\end{lemma}
+
+	\begin{definition}[Boolescher Schaltkreis]
+		Ein \tide c mit n Eingängen ist eine Folge $(g_1 , \dots , g_m)$ von Gattern
+			\[
+				g_l \in {0,1,x_1 , \cdots , x_n , (\neq , j) , (\land ,j ,k) ,(\lor , j , k)}
+			\]
+		mit $1 \leq j,k < l$.
+		Der Schaltkreis c berechnet die boolesche Funktion $c(a) = g_m(a)$. Er heißt erfüllbar , wenn es eine Eingabe $a\in \{0,1\}^n$ mit $c(a)=1$gibt. 
+	\end{definition}
+
+	\par{Auswetungsproblem für boolesche Schaltkreise(CirVal)} 
+		\textbf{Gegeben}:Ein boolescher Schaltkreis c mit n Eingängen und eine Eingabe $a \in \{0,1\}^n$
+		\textbf{Gefragt}: Ist der Wert von c(a) gleich 1?
+	\par{Erfüllbarkeitsproblemur boolesche Schaltkreise }
+		\textbf{Gegeben:}Ein boolescher Schaltkreis c mit n Eingängen.
+		\textbf{Gefragt:}Ist c erfüllbar?
+
+	\begin{example}[\textbf{REACH} $\leq$ \textbf{CIRVAL}]
+		Der Schaltkreis f(G) besteht aus den Gattern
+			$g_{i,j,k'}$ und $h_{i,j,k} $ mit $ 1 \leq i , j , k \leq n$ und $0 \leq k' \leq n$
+		wobei die Gatter $g_{i,j,0} $ für $1 \leq i , j \leq n$ die boolschen Konstanten 
+		\marginpar{Ob die Knoten i und j in dem gegebenen Graphen einfach adjazent sind.}
+			\[
+				g_{i,j,0}= \begin{cases}
+								1 &, i=j \text{oder} (i,j)\in E\\
+								0 &, sonst
+							\end{cases}
+			\]
+
+		sind und für $ k = 1, 2 , \dots , n $ gilt,
+			\[
+				h_{i,j,k} = g_{i,k,k-1} \land g_{k,k,k-1}  (\Rightarrow transitiv)\\
+				g_{i,j,k} = g_{i,j,k-1} \lor h_{i,j,k}. (\Rightarrow Aktualisierung)
+ 			\]
+ 		Dann folgt 
+ 			\[
+ 				g_{i,j,k} = 1 \iff es existiert in G ein Pfad von i nach j , der nur Zwischenknoten l\leq k durchlaüft.\\
+ 				h_{i,j,k} = 1 \iff es existiert in G ein Pfad von i nach j , der den Knoten k , aber keinen Knoten l> k durchläuft.	
+ 			\]
+ 		Wählen wir also $g_{1,n,n}$ als Ausgabegatter , so liefert der aus diesen Gattern aufgebaute Schaltkreis c genau dann den Wert 1, wenn es in G einen Weg von Knoten 1 zu Knoten n gibt. 
+	\end{example}
+
+	\subsection{P-vollständige Probleme und polynomielle Schaltkreiskomplexität}
+		\begin{theorem}[CIRVAL ist P-vollständig]
+			Es ist leicht zu sehen , dass $CIRVAL \in P$ ist. Um zu zeigen , dass CIRVAL hartfür P ist , müssen wir für jede Sprache $L \in P$ eine Funktion $f \in FL$ finden , die L auf CIRVAL reduziert , d.h es muss für alle Eingaben x die Äquivalen $x\in L \iff f(x) \in  CIRVAL$ gelten.
+
+
+			Zu $L \in P$ existiert eine 1-DTM M die L in Zeit $n^c+c$ entscheidet. Wir beschreiben die Rechnung von $M(x) ,  |x| =n $, durch eine Tabelle $T=(T_{i,j}) , (i,j) \in \{ 1, \dots , n^c+c \} x \{ 1 , \dots , n^c+c+2\}$\marginpar{Achtung auf +2. Was geht hier ab?}
+			mit 
+
+			\[
+				T_{i,j} = \begin{cases}
+								(q_i , a_{i,j}&, nach i Schritten besucht M das j-te Bandfeld)\\
+								a_{i,j} &, sonst
+							\end{cases}
+			\]
+
+			wobei $q_i$ der Zustand von M(x) nach i Rechenschritten ist und $a_{i,j}$ das nach i Schritten an Position j befindliche Zeichen auf dem Arbeitsband ist. $T = (T_{i,j})$ kodiert also in ihren Zeilen die von M(x) der Reihe nach angenommenen Konfigurationen.
+
+		\end{theorem}
+
+	\begin{appendices}
+		\section{Begriffsklärungen}
+			\subsection*{Hamiltonian path} \label{hamiltonian_path}
+				A Hamiltonian path , also called a Hamilton path , is a graph bath between two vertices of a graph that visits each vertex exactly once. If a Hamiltonian path exists whose endpoints are adjacent , then the resulting graph cycle is called a \textbf{Hamiltonian cycle}.
+
+				\subsubsection*{More :}
+					In general the problem of finding a Haltionian path is NP-complete , so the only known way to determine whether a given general graph has Hamiltonian path is to undertake an exhaustive search. 
+	\end{appendices}
+
 \end{document}
