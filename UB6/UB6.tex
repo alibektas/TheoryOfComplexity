@@ -12,13 +12,16 @@
 
 
 \begin{document}
+
+	\maketitle
+	
 	\section*{Aufgabe 31}
 		\subsection*{a)}
 			Wir reduzieren VC auf DOMSET.
 			\begin{enumerate}
-				\item Sei $G=(V,E)ein \textbf{ungerichteter} Graph und sei $G'=(V,E')$ ein \textbf{gerichteter} Graph.
-				\item Für jedes $a,b \in V$ mit $(a,b)\in E$ enthalte $E' \union = {(a,b),(b,a)}$
-				\item Für jeden Knoten $a$ für den es gilt : $\neg\exists (a,b)\in E$ enthalte $E' \union= {(b,a)}$ für alle $b \in V/\{a\}$
+				\item Sei $G=(V,E)$ein \textbf{ungerichteter} Graph und sei $G'=(V,E')$ ein \textbf{gerichteter} Graph.
+				\item Für jedes $a,b \in V$ mit $(a,b)\in E$ enthalte $E' \cap = \{(a,b),(b,a)\}$
+				\item Für jeden Knoten $a$ für den es gilt : $\neg\exists (a,b)\in E$ enthalte $E' \cap = \{(b,a)\}$ für alle $b \in V/\{a\}$
 			\end{enumerate}
 
 		\subsection*{b)}
@@ -30,7 +33,7 @@
 				\item Wir wiederholen Schritt 1 für den übriggebliebenen Graphen. 
 			\end{enumerate}
 
-			Wir nehmen jedes Mal $\underset{gewählter Knoten}{1}+ \ceil{\frac{(n-1)}{2}}$ viele Knoten heraus. Somit \dots .Wir sind also in $log(n)$ Schritten fertig. 
+			Wir nehmen jedes Mal $\underbrace{1}_{\text{gewählter Knoten}} +\ceil{\frac{(n-1)}{2}}$ viele Knoten heraus. Somit $\dots$ .Wir sind also in $log(n)$ Schritten fertig. 
 		\subsection*{c)}
 			Da wir wissen , dass wir maximal log(n) Elemente brauchen , um ein Dominating Set für den Graphen zu erstellen ,sei M eine DTM die folgende Arbeitsweise hat:
 
@@ -42,8 +45,8 @@
 			Somit ist die Anzahl an Rechenschritten :
 
 			\begin{align*}
-				\sum_{i=1}^{\ceil{log(n)}} \choose{n}{i} &= \frac{n!}{(n-1)!} + \frac{n!}{(n-2)!2!}+\cdots+\frac{n!}{(n-\ceil{log (n)})!\cdot \ceil{log(n)}} \\
-				&= n + \frac{n * (n-1)}{2} + \dots + \frac{n \cdot (n-1) \cdot \dots \cdot (n- \ceil{log n}+1)}{1 \cdot 2 \dots ceil{log n}} \\
+				\sum_{i=1}^{\ceil{log(n)}} \binom{n}{i} &= \frac{n!}{(n-1)!} + \frac{n!}{(n-2)!2!}+\cdots+\frac{n!}{(n-\ceil{log (n)})!\cdot \ceil{log(n)}} \\
+				&= n + \frac{n * (n-1)}{2} + \dots + \frac{n \cdot (n-1) \cdot \dots \cdot (n- \ceil{log n}+1)}{1 \cdot 2 \dots \ceil{log n}} \\
 				&\leq n + n\cdot (n-1) + \dots + n \cdot (n-1) \dots (n- \ceil{log n} +1) = n^{O(log n)} 
 			\end{align*}
 
