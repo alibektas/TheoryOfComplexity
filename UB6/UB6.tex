@@ -1,0 +1,54 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
+\newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
+
+
+\title{Übungsblatt 6}
+\author{Ali Bektas 588063 \and Julian Kremer 562717 \and Ruben Dorfner 550204}
+
+
+\begin{document}
+	\section*{Aufgabe 31}
+		\subsection*{a)}
+			Wir reduzieren VC auf DOMSET.
+			\begin{enumerate}
+				\item Sei $G=(V,E)ein \textbf{ungerichteter} Graph und sei $G'=(V,E')$ ein \textbf{gerichteter} Graph.
+				\item Für jedes $a,b \in V$ mit $(a,b)\in E$ enthalte $E' \union = {(a,b),(b,a)}$
+				\item Für jeden Knoten $a$ für den es gilt : $\neg\exists (a,b)\in E$ enthalte $E' \union= {(b,a)}$ für alle $b \in V/\{a\}$
+			\end{enumerate}
+
+		\subsection*{b)}
+			In einem Turniergraph mit n Knoten gibt es $ \frac{n\cdot(n-1)}{2}$ Kanten. Im Durchschnitt gibt es also $ \frac{(n-1)}{2}$ ausgehende Kanten für jede Knoten. Wir sammeln die DOMSET von einem Graphen wie folgt. 
+
+			\begin{enumerate}
+				\item Wir nehmen den Knoten , der mindestens $\frac{n-1}{2}$ Kanten hat.
+				\item Wir nehmen ihn und alle von ihm dominierten Knoten heraus.
+				\item Wir wiederholen Schritt 1 für den übriggebliebenen Graphen. 
+			\end{enumerate}
+
+			Wir nehmen jedes Mal $\underset{gewählter Knoten}{1}+ \ceil{\frac{(n-1)}{2}}$ viele Knoten heraus. Somit \dots .Wir sind also in $log(n)$ Schritten fertig. 
+		\subsection*{c)}
+			Da wir wissen , dass wir maximal log(n) Elemente brauchen , um ein Dominating Set für den Graphen zu erstellen ,sei M eine DTM die folgende Arbeitsweise hat:
+
+			\begin{enumerate}
+				\item M wählt in aufsteigender Reihenfolge maximal $log(n)$ viele Elemente aus n vielen Elementen
+				\item Dann versucht sie nachzuweisen dass die gewählte Menge eine Dominating Set für den Grpahen darstellt. Wenn das ihr gelingt hält sie , wenn nicht geht sie weiter.
+			\end{enumerate}
+
+			Somit ist die Anzahl an Rechenschritten :
+
+			\begin{align*}
+				\sum_{i=1}^{\ceil{log(n)}} \choose{n}{i} &= \frac{n!}{(n-1)!} + \frac{n!}{(n-2)!2!}+\cdots+\frac{n!}{(n-\ceil{log (n)})!\cdot \ceil{log(n)}} \\
+				&= n + \frac{n * (n-1)}{2} + \dots + \frac{n \cdot (n-1) \cdot \dots \cdot (n- \ceil{log n}+1)}{1 \cdot 2 \dots ceil{log n}} \\
+				&\leq n + n\cdot (n-1) + \dots + n \cdot (n-1) \dots (n- \ceil{log n} +1) = n^{O(log n)} 
+			\end{align*}
+
+			Die letzte Schranke setzt hingegen $n \geq 2$ voraus. Es ist aber sinnvoll das anzunehmen.
+			Für $n=1$ sind wir sowieso in O(1) fertig. 
+			
+
+\end{document}

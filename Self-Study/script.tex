@@ -25,6 +25,7 @@
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{example}[theorem]{Example}
+\newtheorem{proposition}[theorem]{Proposition}
 
 
 \def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
@@ -336,6 +337,44 @@
 			wobei $q_i$ der Zustand von M(x) nach i Rechenschritten ist und $a_{i,j}$ das nach i Schritten an Position j befindliche Zeichen auf dem Arbeitsband ist. $T = (T_{i,j})$ kodiert also in ihren Zeilen die von M(x) der Reihe nach angenommenen Konfigurationen.
 
 		\end{theorem}
+
+		\begin{corollary}
+			Sei $L \subset \{0,1\}*$ eine beliebige Sprache in P. Dann ex eine Fkt $f \in \textbf{FL}$ , die bei Eingabe $1^n$ einen Schaltkreis $c_n$ mit n Eingängen berechnet , so dass für alle $x\in \{0,1\}^n$ gilt:
+				\[
+					x \in L \iff c_n(x) = 1 
+				\] \marginpar{Ich gebe dir eine Länge du gibst mir einen Schaltkreis der True ausgibt falls x aus der Sprache ist. Korrolar besagt insb. , dass es für jede Sprache $L \in \{0,1\}^*$ in P eine Schaltkreisfamilie $(c_n)_{n\geq0}$ polynmoieller Größe gibt , so dass $c_n$ für alle Eingaben die char. Fkt von L berechnet.}
+
+		\end{corollary}
+
+		\fbox{
+			Die TM ist ein \textbf{uniformes} Rechenmodell , da alle Instanzen eines Problems von einer einheitlichen Maschine entschieden werden . Im Gegensatz hierzu stellen Schaltkreise ein nichtuniformes Berechnungsmodell dar , da für jede Eingabegröße n ein anderer Schaltkreis $c_n$ verwendet wird. Um im Schaltkreis-Modell eine unendliche Sprache entscheiden zu können , wird also eine unendliche Folge $c_n , n \geq 0$ von Schaltkreisen benötigt.Probleme für die Schaltkreisfamilien polynomieller Größe existieren werden zur Klasse PSK zusammengefasst
+		}
+
+		\begin{definition}{PSK}	
+			Eine Sprache L über $\{0,1\}$ hat poly Schaltkreiskomplexität , falls es eine Folge von bool Schaltkreisen $c_n , n \geq 0$ , mit n Eingängen und $n^{O(1)} + O(1)$ Gattern gibt.
+
+			Eine Sprache L über einem Alphabet $\sum = \{ a_0 , \dots , a_{k-1}$ hat polynomielle Schaltkreiskomplexität falls die Binärkodierung 
+				\[
+					bin(L) = \{ bin(x_1)\dots bin(x_n) | x_1 \dots x_n \in L\}
+				\]
+			von L poly. Schaltkreiskomplexität hat. Hierbei kodieren wir a_i durch die m-stellige Binärdarstellung $bin(i) \in \{0,1\}^m$ von i , wobei $m = max \{ 1, \ceil{log_2 k} \}$
+		\end{definition}
+
+		\begin{corrolary}{Savage 1972}
+			$P \subset PSK$
+			\marginpar{Ob auch alle NP-Sprachen poly. Schaltkreiskomplexität haben ist ein berühmtes offenes Problem. Gelingt es nämlich , für ein NP-Problem superpolynomielle untere Schranken für die Schaltkreisgröße zu zeigen , so folgt mit dem Resultat von Savage $P \neq NP$}
+		\end{corollary}
+
+		Es ist nicht schwer zu sehen , dass die Inklusion $P \subset PSK$ echt ist. Hierzu betrachten wir Sprachen über einem einelementigen Alphabet.Es ist nicht schwer zu sehen , dass alle tally Sprachen polynomielle Schalkreiskomplexität haben.
+
+		\begin{proposition}{$TALLY \subset PSK$} \end{proposition}
+		\begin{corollary}{$PSK \nsubset RE$}\end{corollary}
+
+
+
+
+
+
 
 	\begin{appendices}
 		\section{Begriffsklärungen}

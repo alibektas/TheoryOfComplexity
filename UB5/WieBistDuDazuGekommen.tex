@@ -1,0 +1,81 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{proposition}[theorem]{Proposition}
+
+
+\def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
+\newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
+\newcommand{\floor}[1]{\mathify{\left\lfloor {#1}\right\rfloor}}
+
+
+\begin{document}
+	Für eine Sprache $A \subset \sum^*$ und eine Fumkton $f : \mathbb{N} \rightarrow \{ 0, 1\}^*$ sei $A/h$ die Sprache
+
+	\[
+		A/h = \{ x \in {\sum}^* | x\#h(|x|) \in A \}
+	\]
+	\marginpar{
+		h schreibt eine Hilfesequenz. In wiefern das wichtig ist , weiß ich noch nicht.
+	}
+
+	h wird auch \textbf{Advicefunction} für $A/h$ und $h(n)$ \textbf{Advice} für die Eingabelänge n genannt. Für eine Sprachklasse C:
+
+	\[
+		C/poly \:= \{A/h | A \in C\}
+	\]
+	wobei h eine bel. Advfkt mit $|h(n)| \leq n^c + c$ für eine Konstant c ist.
+
+	Zu zeigen 
+	\[
+		P/poly = PSK = LINTIME/poly
+	\]
+	Natürlich machen wir daraus eine Inklusionszyklus.
+
+	\[
+		P/poly \subset PSK \subset LINTIME/poly \underbrace{\subset}_{klar} P/poly
+	\]
+
+	Dies zeigt auch , wie sinnvoller es ist einen Inklusionskette zu zeigen.
+
+	OK.
+	Lass uns zuerst einige Begriffe wiederholen.
+
+	\begin{definition}{PSK}
+		Eine Sprche L über dem Binäralphabet hat PSK , falls es eine Folge von booleschen Schaltkreisen $c_n , n \geq 0 $
+	    mit n Eingängen und polynomiell viele Gattern gibt , so dass für alle $x \in \{0,1\}*$  gilt :
+	     \[x \in  \iff c_{|x|}(x) = 1 \] 
+	\end{definition}
+
+	\subsection*{Erste Inklusion}
+		\begin{comment}
+			\begin{align*}
+				P/poly \subset PSK &\iff\\
+				\forall L \in P/poly \subset PSK &\iff\\
+				\forall L \in P \forall f \in poly : \{ x \in {\sum}^* | x \#f(|x|) \in L \} &\iff \\
+				\exists M \in M_{DTM} \\
+			\end{align*}
+		\end{comment}
+
+		\begin{align*}
+			P/poly \subset PSK &\iff\\ 
+			\forall A \in P \forall h \in FPSPACE A/h \in PSK.
+		\end{align*}
+
+		Su zamana kadara takildigim nokta PSPACE kaplayan bir fomksioypmim masol LINTIME'da okunabilecegiydi. Peki bu fonksiyon aslinda bize ne soyluyor. Iki tane girdi dusunelim bunlari uzunluklari ayni olsun. Boyle bi durumda bu fonkisyondan gecince elde edecekleri outputlar da ayni olacak yani aslinda kelimenin uzunlugu disindaki butun bilgiler cope gidiyor. Wenn die Länge des Wortes das einzige Wichtigste an dem Ausgabewort ist ,so zählen wir die Länge des Wortes. Hadi bunu da yaptik diyelim . Simdi demistik ki elimizdeki bu kelime P surede bir makine tarafindan taninacak peki bunu LINTIME'a indirmede neden bu kadar eminiz ?
+
+
+
+
+
+
+\end{document}
