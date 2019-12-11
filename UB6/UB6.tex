@@ -25,6 +25,13 @@
 				\item Für jeden Knoten $a$ für den es gilt : $\neg\exists (a,b)\in E$ enthalte $E' \cap = \{(b,a)\}$ für alle $b \in V/\{a\}$
 			\end{enumerate}
 
+			\begin{align*}
+				A \in VC(G , k) &\iff \\
+					&\iff \text{Für alle e} \in \text{E gilt} , e \cap A \neq \emptyset \\
+					&\iff \text{Für alle v} \in V'\textbackslash \text{B gilt} : \exists b \in B : (b,v) \in E'\\
+					&\iff B \in DOMSET(G' , k) \\
+			\end{align*}
+
 		\subsection*{b)}
 			In einem Turniergraph mit n Knoten gibt es $ \frac{n\cdot(n-1)}{2}$ Kanten. Im Durchschnitt gibt es also $ \frac{(n-1)}{2}$ ausgehende Kanten für jede Knoten. Wir sammeln die DOMSET von einem Graphen wie folgt. 
 
