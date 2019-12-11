@@ -20,9 +20,16 @@
 			Wir reduzieren VC auf DOMSET.
 			\begin{enumerate}
 				\item Sei $G=(V,E)$ein \textbf{ungerichteter} Graph und sei $G'=(V,E')$ ein \textbf{gerichteter} Graph.
-				\item Für jedes $a,b \in V$ mit $(a,b)\in E$ enthalte $E' \cap = \{(a,b),(b,a)\}$
-				\item Für jeden Knoten $a$ für den es gilt : $\neg\exists (a,b)\in E$ enthalte $E' \cap = \{(b,a)\}$ für alle $b \in V/\{a\}$
+				\item Für jedes $a,b \in V$ mit $(a,b)\in E$ enthalte $E' \cup = \{(a,b),(b,a)\}$
+				\item Für jeden Knoten $a$ für den es gilt : $\neg\exists (a,b)\in E$ enthalte $E' \cup = \{(b,a)\}$ für alle $b \in V/\{a\}$
 			\end{enumerate}
+
+			\begin{align*}
+				A \in VC(G , k) &\iff \\
+					&\iff Für alle e \in E gilt , e \cap A \neq \emptyset \\
+					&\iff Für alle v \in V'\/B gilt : \exists b \in B : (b,v) \in E'\\
+					&\iff B \in DOMSET(G' , k) 
+			\end{align*}
 
 		\subsection*{b)}
 			In einem Turniergraph mit n Knoten gibt es $ \frac{n\cdot(n-1)}{2}$ Kanten. Im Durchschnitt gibt es also $ \frac{(n-1)}{2}$ ausgehende Kanten für jede Knoten. Wir sammeln die DOMSET von einem Graphen wie folgt. 
@@ -33,7 +40,9 @@
 				\item Wir wiederholen Schritt 1 für den übriggebliebenen Graphen. 
 			\end{enumerate}
 
-			Wir nehmen jedes Mal $\underbrace{1}_{\text{gewählter Knoten}} +\ceil{\frac{(n-1)}{2}}$ viele Knoten heraus. Somit $\dots$ .Wir sind also in $log(n)$ Schritten fertig. 
+			Wir nehmen jedes Mal $\underbrace{1}_{\text{gewählter Knoten}} +\ceil{\frac{(n-1)}{2}}$ viele Knoten heraus.Wir sind also in $log(n)$ Schritten fertig. 
+
+
 		\subsection*{c)}
 			Da wir wissen , dass wir maximal log(n) Elemente brauchen , um ein Dominating Set für den Graphen zu erstellen ,sei M eine DTM die folgende Arbeitsweise hat:
 
