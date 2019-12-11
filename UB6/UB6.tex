@@ -2,6 +2,7 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{german}
 
 \def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
 \newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
@@ -20,29 +21,23 @@
 			Wir reduzieren VC auf DOMSET.
 			\begin{enumerate}
 				\item Sei $G=(V,E)$ein \textbf{ungerichteter} Graph und sei $G'=(V,E')$ ein \textbf{gerichteter} Graph.
-				\item Für jedes $a,b \in V$ mit $(a,b)\in E$ enthalte $E' \cup = \{(a,b),(b,a)\}$
-				\item Für jeden Knoten $a$ für den es gilt : $\neg\exists (a,b)\in E$ enthalte $E' \cup = \{(b,a)\}$ für alle $b \in V/\{a\}$
+				\item Für jedes $a,b \in V$ mit $(a,b)\in E$ enthalte $E' \cap = \{(a,b),(b,a)\}$
+				\item Für jeden Knoten $a$ für den es gilt : $\neg\exists (a,b)\in E$ enthalte $E' \cap = \{(b,a)\}$ für alle $b \in V/\{a\}$
 			\end{enumerate}
-
-			\begin{align*}
-				A \in VC(G , k) &\iff \\
-					&\iff Für alle e \in E gilt , e \cap A \neq \emptyset \\
-					&\iff Für alle v \in V'\/B gilt : \exists b \in B : (b,v) \in E'\\
-					&\iff B \in DOMSET(G' , k) 
-			\end{align*}
 
 		\subsection*{b)}
 			In einem Turniergraph mit n Knoten gibt es $ \frac{n\cdot(n-1)}{2}$ Kanten. Im Durchschnitt gibt es also $ \frac{(n-1)}{2}$ ausgehende Kanten für jede Knoten. Wir sammeln die DOMSET von einem Graphen wie folgt. 
 
 			\begin{enumerate}
-				\item Wir nehmen den Knoten , der mindestens $\frac{n-1}{2}$ Kanten hat.
+				\item Wir nehmen den Knoten , der mindestens $\frac{n-1}{2}$ ausgehende Kanten hat.
 				\item Wir nehmen ihn und alle von ihm dominierten Knoten heraus.
 				\item Wir wiederholen Schritt 1 für den übriggebliebenen Graphen. 
 			\end{enumerate}
 
-			Wir nehmen jedes Mal $\underbrace{1}_{\text{gewählter Knoten}} +\ceil{\frac{(n-1)}{2}}$ viele Knoten heraus.Wir sind also in $log(n)$ Schritten fertig. 
-
-
+			Wir nehmen jedes Mal $\underbrace{1}_{\text{gewählter Knoten}} +\ceil{\frac{(n-1)}{2}}$ viele Knoten heraus. \\
+			Da $n - (1+{\ceil{\frac{(n-1)}{2}})} \leq n/2$ wird die Anzahl der Knoten in jedem Schritt mindestens halbiert.
+		Die maximale Anzahl an notwendigen Halbierungsschritten x für einen Turniergraphen der Größe n ergibt sich durch umformen der Gleichung $n \cdot \frac{1}{2}^x = 1$, da der Algorithmus spätestens bei einem Graphen der Größe 1 terminiert. Da $x=log(n)$ gilt impliziert dies, dass das für jeden Turniergraphen ein Dominating Set der Mächtigkeit log(n) existiert.
+ 
 		\subsection*{c)}
 			Da wir wissen , dass wir maximal log(n) Elemente brauchen , um ein Dominating Set für den Graphen zu erstellen ,sei M eine DTM die folgende Arbeitsweise hat:
 
