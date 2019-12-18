@@ -1,0 +1,48 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{german}
+
+\def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
+\newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
+
+
+\title{Übungsblatt 7}
+\author{Ali Bektas 588063 \and Julian Kremer 562717 \and Ruben Dorfner 550204}
+
+
+\begin{document}
+
+	\maketitle
+	
+	\section*{Aufgabe 37}
+		\subsection*{a)}
+			\subsubsection*{$\subset$}
+				\par Diese Richtung ist klar denn der maximale Weg zwischen zwei unter n Knoten , ohne Zyklen zu erzeugen , ist n-1 lang.
+			\subsubsection*{$\supset$}
+				\par Diese Richtung ist auch leicht zu zeigen. Wir nehmen ein bel. Element $y$ aus $(E\cap Id)^{n-1}$.Für dieses Element $y$ gilt entweder $y=(x,x)$ oder es gibt einen Weg der Länge maximal n-1 mit anderen Worten : y war entweder in E enthalten oder y ist durch Konkatinierung von zwei Pfäden entstanden.
+		\subsection*{b)}
+				\par Um eine \textbf{REACH}-Frage zu beantworten braucht man zunächst $E^{*}$.
+
+				\textbf{Idee} : Multipliziere die Adjazenzmatrix $log n$ Mal mit sich selbst , also
+				\begin{align*}
+				&A = (E \cup Id)\\
+				&\text{for log n times} :\\ 
+				&\hspace{20px}A = A * A
+				\end{align*} 
+				Dadurch würden wir $(E \cup Id)^{n}$ berechnen was $E^*$ ist.
+
+				Wir betrachten nun die Matrixmultiplikation.
+
+				\[
+					(AB)_{ij} = \lor_{k \in \{ 1,\dots ,n \}} (A_{ik} \land B_{kj})
+				\]
+
+				Die Verundung hat die Tiefe 1 und die Veroderung von $n$ Werten hat die Tiefe $log n$ , denn ODER-Gatter hat zwei Fanins.
+
+				Es ergibt sich also $O(log^2 n)$.
+		\subsection*{c)}
+				Idee : Reduziere die Frage , ob ein Wort aus einer Sprache $L$ mit \[L\in NSPACE(s(n))\] auf die Frage von \textbf{REACH}. Dies gelingt einem , wenn man einen Graphen erstellt , dessen Knoten alle möglichen Konfigurationen sind. Eine NTM die die Sprache L entscheidet, kann maximal $2^{O(s)}$ Konfigurationen besitzen. Jetzt heißt die Frage : Kann man ausgehend von der Startkonfiguration in eine Endkonfiguration mit akzeptierendem Zustand gelangen? Wir können insgesamt $2^{O(s(n))}$ viele solche Fragen stellen und um jede solche Frage zu beantworten bräuchten wir einen Schaltkreis der Tiefe \[O(log^2 2^{O(s(n))}) = O(s(n)^2)\]
+
+\end{document}
