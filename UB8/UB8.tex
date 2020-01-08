@@ -1,0 +1,62 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{german}
+
+\def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
+\newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
+
+
+\title{Übungsblatt 8}
+\author{Ali Bektas 588063 \and Julian Kremer 562717 \and Ruben Dorfner 550204}
+
+
+\begin{document}
+
+	\maketitle
+	
+	\section*{Aufgabe 39}
+		Idee : In jedem Schritt führt das Flippen eines Literals in einer \textbf{unerfüllten} Klausel dazu , dass wir uns entweder (mit einer größeren Wkt. 'mehr dazu unten') h annähern oder davon wegbewegen.
+
+		\subsection*{i)}
+			$t_0 = 0 $ lässt sich wie folgt interpretieren : Wenn sich unsere Antwort von einer erfüllenden Belegung durch keine Variablen unterscheidet , dann ist die erwartete Anzahl an Schleifendurchläufen Null , was ja der Fall ist , denn wir haben keine zu erfüllende Klauseln , d.h die gesamte Formel ist erfült , woraus folgt dass While-Loop nicht durchlaufen wird.
+
+		\subsection*{ii)}
+			$t_n \leq t_{n-1} + 1$ : Wenn alle Variablen falsch belegt sind , dann sind wir nach einem Schritt näher an die erfüllende Belegung , weil es einfach nicht möglich ist mehr als die gesamte Anzahl von Variablen ($n$) falsche Belegungen zu haben.
+
+		\subsection*{iii)}
+			Da wir jedesmal eine falsche Klausel wählen und da die falsche Klauseln niemals 2 richtig gewählte Literalen enthalten können , hat man eine Wkt. von mehr als $\frac{1}{2}$ dass man nach diesem Schritt näher an die Lösung kommt. Wir betrachten die Random-Walk mithilfe von folgender Formel:
+
+				\[ t_i = p_{i,i-1}(1+t_{i-1}) + p_{i,i+1}(1+t_{i+1}) \]
+
+
+			wobei $p_{i,i-1}$ die Wkt. ist dass wir ein falsch belegtes Literal wählen. Wir setzen $p_{i,i-1} = \frac{1}{2} + \epsilon $ , mit $ \frac{1}{2} \geq \epsilon > 0 $.
+
+			\begin{flalign*}
+				t_i &= (\frac{1}{2} + \epsilon )(t_{i-1} +1) + (\frac{1}{2} - \epsilon)(t_{i+1} + 1)\\
+				&= 1 + \frac{1}{2}t_{i-1} + \frac{1}{2} t_{i+1} + \underbrace{\epsilon t_{i-1} - \epsilon t_{i+1}}_{<0}\\ 
+				&\leq 1 + \frac{1}{2}t_{i-1} + \frac{1}{2} t_{i+1}
+			\end{flalign*} 
+
+		\subsection*{iv)}
+			Wir machen die Ungleichungen aus i,ii,iii zu Gleichungen. Die daraus gebildete Funktion stellt das Maximum dar. Dann
+
+			\begin{flalign*}
+				2t(1) - 2 &= t(0) + t(2)\\
+				2t(2) - 2 &= t(1) + t(3)\\
+				\vdots
+				&\rightarrow 2(t(1) + \dots + t(n-1) - (n-1)) = t(0) + t(1) + 2(t(2)+ t(3) + \dots)\\
+				&\rightarrow t(1) - 2(n-1)  + t(n-1) = t(n) = t(n-1) \\
+				&\rightarrow t(1) -2(n-1) = 1
+			\end{flalign*}
+
+			Dadurch dass wir oben $t(1) = 2n -1 $ einsetzen erhalten wir im Allgemeinen $t_i = i(2n - i)$ und dadurch haben wir das Gesuchte. 
+
+		Damit eine Eingabe von PM akzeptiert wird muss die Akzeptanzwkt bei korrekter Eingabe über $\frac{1}{2}$ liegen. Um zu argumentieren dass die Laufzeit dann polynomiell wäre , verwenden wir die Markov-Ungleichung. Aus iv folgt dass die erwartete Anzahl von Schleifendurchläufen $\leq n^2 $ist. Dann folgt:
+
+		\[
+			P(X \geq \frac{1}{2}) \leq \frac{n^2}{\frac{1}{2}} = 2n^2
+		\]
+		
+\end{document}
