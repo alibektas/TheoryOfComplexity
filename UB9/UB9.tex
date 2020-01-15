@@ -1,0 +1,82 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{german}
+
+
+\def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
+\newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
+
+
+\title{Übungsblatt 8}
+\author{Ali Bektas 588063 \and Julian Kremer 562717 \and Ruben Dorfner 550204}
+
+
+\begin{document}
+
+	\maketitle
+	
+	\section*{Aufgabe 42}
+
+	\subsection*{a)}
+		Sei $A\in \oplus C$ mittels einem Polynom p und einer p-balancierten Sprache $B \in C$. Weiter gelte $A' \leq^{log}_m$ A mittels einer FL-Fkt. f. Nach Lemma 86 existieren Polynom q und q-balancierte Sprache $B'\in C$ mit:
+
+		\[
+			\#B'(x)/2^{q(|x|)} = \#B(f(x))/2^{p(|f(x)|)}
+		\]
+		Nun folgt :
+
+		\[
+			x \in A' \iff f(x) \in A \iff \#B(f(x)) \equiv_2 1 \iff \#B'(x) \equiv_2 1
+		\]
+
+		Woraus folgt $A' = \oplus B'$.
+	\subsection*{b)}
+		\subsubsection*{$\subset$}
+			Seien p und q Polynome , $A \in \oplus \oplus C$ , $A' \in \oplus C$ p-balancierte und $A'' \in \oplus \oplus C$ q-balancierte Sprachen mit 
+			$A = \oplus A'  , A' = \oplus A''$.Wir wollen zeigen : $A \in \oplus C$. Dazu betrachte die  Sprache 
+			
+			\[
+			B= \{ x\#yz| x\#y\#z \in A'' ,  y \in \{0,1\}^{p(|x|)} , z \in \{0,1\}^{q\cdot (p+1)(|x|) + q(1)} \}
+			\] 
+
+			und die Funktion f , die an der $p(|x|)+1$-ten Stelle ein \# schreibt. Da Zählen der $p(|x|)+1$-ten Stelle in FL (wie von Unar zu Binär) ist gilt , dass $f \in FL$. Somit gilt wegen der Abgeschlossenheit von C unter $\leq^{log}_m$ und $A'' \in C$ : $B \in C$.Da B aus den Wörtern besteht , die die Konkatinierung von y und z (wie oben definiert) als Zeuge haben , gibt es für jedes Wort $x \in A$  $\#A'(x) * A''(x\#y)$ viele , also ungerade viele , paarweise verschiedene Zeugen (weil $x \in A \rightarrow \#A'(x) \equiv_2 1 $ und $x\#y \in A' \rightarrow \#A''(x\#y)\equiv_2 1$). A enthält also genau die Elemente , für die es gilt : $x \in A \rightarrow \#A'(x) \equiv_2 1 $ und $x\#y \in A' \rightarrow \#A''(x\#y)\equiv_2 1$). 
+
+
+			Jetzt argumentieren wir , warum $\oplus B $ genau die Elemente enthält die in A sind, indem wir zeigen dass die restlichen Fälle zu einem Widerspruch führen :\\Angenommen gäbe es für eine Präfix $x\in A$ gerade viele Zeugen z ($x\#y\#z \in A''$). Es gilt:
+			
+			\begin{flalign*}
+			&x \in A \rightarrow \#A'(x) \equiv_2 1 \text{ und } x\#y \in A' \rightarrow \#A''(x\#y)\equiv_2 1\\
+			&\#B(x) \equiv_2 0 \rightarrow x \notin A  \lightning
+			\end{flalign*}
+		\subsubsection*{$\supset$}
+			Seien p Polynom , $A \in \oplus C'$ eine Sprache und $A' \in C$ eine p-balancierte Sprache mit 
+			$A = \oplus A'$.Wir wollen zeigen : $A \in \oplus\oplus C$. Dazu betrachte die Sprache 
+	
+			\[
+			B = \{ x\#y\#i | x\#y \in A' i \in \{1\}^{r(|x\#y|)} \}
+			\]
+
+			wobei i ein beliebiges Polynom ist. Es ist leicht zu sehen dass $A' = \oplus B$ ist. Sei f diesmal eine Funktion die alle Einsen nach dem letzten $\#$-Zeichen der Eingabe x entfernt. Dadurch gilt $B \leq A$. Aus diesen Tatsachen folgt $A = \oplus A' = \oplus \oplus B$
+
+	\subsection*{c)}
+		Dieser Teil ist vollkommen analog zu b, weshalb wir darauf verzichten , denselben Beweis zu führen.
+
+	\subsection*{d)}
+		\subsubsection*{$\subset$}
+
+		Der Beweis dieses Teils ist auch analog zu b
+
+		\subsubsection*{$\supset$}
+
+		In diesem Teil ist die konsturierte Sprache anders zu definieren. Betrachte für diesen Fall die Sprache
+
+		\[
+			B = \{ x\#y\#i | x\#y \in A' i \in \{1,\underbrace{0}_{\text{der Unterschied}}\}^{r(|x\#y|)} \}
+		\]
+
+		Der Rest des Beweises erfolgt wiederum analog.
+
+\end{document}
