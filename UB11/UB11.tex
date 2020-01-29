@@ -1,0 +1,86 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{german}
+
+
+\def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
+\newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
+
+
+\title{Übungsblatt 11}
+\author{Ali Bektas 588063 \and Julian Kremer 562717 \and Ruben Dorfner 550204}
+
+
+\begin{document}
+
+	\maketitle
+
+	\section*{Aufgabe 49}
+
+		\subsection*{a)}
+			\subsubsection*{$co-NP(B) \neq NP(B)$}
+
+			Wir ändern die im Beweis vom Satz 94 verwendete Menge B und dann zeigen $L(B) \notin co-NP(B)$.\\
+
+			Sei $(n_j)_{n \in \mathbb{N}} $ eine Folge von natürlichen Zahl die kein gemeinsames Folgeglied mit der im Satz 94 verwendeten Folge hat. Wenn wir eine co-NP Maschine $M_i$ ein Wort eingeben , kann sie diese entweder akzeptieren , so akzeptieren jede Rechnungen. In diesem Fall fügen wir nichts zu der Menge hinzu. Andernfalls verwirft mindestens eine Rechnung , dann fügen wir das Wort hinzu , das auf diesem Rechnungspfad nicht gefragt wird. Ein solches Wort existiert denn es gibt nur polynomiell viele Fragen die auf diesem Pfad gestellt werden können. 
+
+			\subsubsection*{$co-NP(B) \neq P(B)$}
+				Betrachte die Sprache:
+
+				\[
+				L'(B) = \{ 0^n | B \cap \{0,1\}^n = \{0,1\}^n \}
+				\]
+			
+				Wir verwenden eine Folge , die dieselben Einschränkungen  hat wie die Folge , die im Beweis vom Satz 94 benutzt wird. Seien die Folgenglieder dieser Folge von denen von der anderen Folge verschieden. Falls die POM $M_i$ die Eingabe verwerfen soll , so fügen wir alle Wörter der Länge $n_i$ hinzu. 
+		
+
+		\subsection*{b)}
+			Idee : Wir zeigen statt dieser Aussage die Aussage:
+
+			\[
+				LOGTIME^B \neq NLOGTIME^B \neq co-NLOGTIME^B
+			\]
+
+
+			Sei diesmal die Testsprache 
+
+			\[
+				L(B) = \{0^{2^n} | B \cap \{0,1\}^n \neq \emptyset \}
+			\]
+
+
+			und betrachte die Sprache für den Beweis $NLOGTIME^B \neq co-NLOGTIME^B$
+		
+			\[
+				L'(B) = \{ 0^{2^n} | B \cap \{0,1\}^n = \{0,1\}^n \}
+			\]
+			
+
+			Der Beweis erfolgt dann vollkommen analog zu (a) , woraus die Aussage (b) folgt.
+			Anmerkung : Die Auswahl der Folge muss sich dementsprechend wie folgt ändern:
+
+			\[
+				n_i = min \{ n \in \mathbb{N} | n \geq (i-1)log(n_{i-1}) + i , i(log (n))+i < 2^n\}
+			\]
+		
+
+		\subsection*{c)}
+			\[
+				C = \{ x_i | x_i \text{ is Präfix von einem anderen Wort in C , das eine Länge von } in+i \text { hat} \}
+			\]
+
+		Damit eine $i log(|x|)+i$-platzbeschränkte Maschine das Wort $x_i$ entscheidet , muss sie letzendlich Orakel nach einem Wort der Länge $in+i$ fragen. Die Länge liegt jedoch über der Kapazität dieser Maschine. 
+
+
+		\subsection*{d)}
+			\subsubsection*{$L=NL \rightarrow \forall A : L^{det(A)} = NL^{det(A)}$}
+				$L = NL $ besagt dass es zu jeder eine NL Sprache erkennende nichtdeterministische Maschine M eine entsprechende deterministische Maschine M' gibt. Die Maschine M' kann also M simulieren , auch wenn M die beiden mit Orakel A versehen sind. 
+			\subsubsection*{$\forall A : L^{det(A)} = NL^{det(A)} \rightarrow \forall A : L^{strong(A)} = NL^{strong(A)}$} 
+				Diese Aussage folgt sofort aus der Aufgabe 44(b). 
+			\subsubsection*{$\forall A : L^{strong(A)} \rightarrow L=NL $}
+				Idee : Wähle so eine Sprache , etwa $\Sigma^*$ , dass das Orakelband keinen Beitrag hat. Wenn wir die Sprache $\Sigma^*$ wählen ist das Orakelband nichts anderes als ein beliebiges Band , das mit betrachtet wird. Aus diesen Tatsachen folgt $L=NL$.   
+
+\end{document}
