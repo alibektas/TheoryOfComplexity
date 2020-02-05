@@ -1,0 +1,50 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{german}
+
+
+\def\mathify#1{\ifmmode{#1}\else\mbox{$#1$}\fi} % guarantee math mode
+\newcommand{\ceil}[1]{\mathify{\left\lceil {#1}\right\rceil}}
+
+
+\title{Übungsblatt 11}
+\author{Ali Bektas 588063 \and Julian Kremer 562717 \and Ruben Dorfner 550204}
+
+
+\begin{document}
+
+	\maketitle
+
+	\section*{Aufgabe 53}
+
+		\subsection*{a)}
+			\subsubsection{$\rightarrow$}
+				
+			\subsubsection{$\leftarrow$}
+				A habe eine $\land_2$ in FL.
+				Seien X und Y Sprachen aus C. Diese sind also auf A reduzierbar . Die Reduktionen erfolgen wiederum in FL(bezeichne die entsprechenden Funktionen mit f und f').
+
+ 				Betrachte die Fkt $f''$
+				\[
+					f''(f(e)\#f'(e)) \in A \iff f(e) \in A \land f'(e) \in A \iff e \in X \cap Y
+				\]
+
+				D.h f'' ist eine FL Reduktion auf A.Somit gehört der Durchschnitt auch zu der Sprachklasse C.
+
+		\subsection*{b)}
+			\subsubsection*{NP}
+				Sei X und Y NP-Sprachen. Dann gibt es $N_x$ und $N_y$ die diese entscheiden. Sei N eine NTM die folgendes tut. 
+
+				N simuliert Reihe nach $N_x$ $N_y$. Wenn N das Wort akzeptieren sollte , wenn eine der zu simulierenden Mascinen das Wort akzeptiert , so erkennt sie die Sprache $X \cup Y$. Wenn sie nur dann akzeptiert wenn beiden Maschinen akzeptieren so erkennt sie $X \cap Y$.
+			\subsubsection*{co-NP}
+				Vollkommen analog.
+			\subsubsection*{$NP \cap co-NP$}
+				Hier ist das Vorgehen wie folgt: Für jede Sprache $X\in NP \cap co-NP$ gibt es jeweils eine NP und co-NPTM. Dann sollte eine NP Maschine für $X\cap Y$(o. $ X \cup Y$) deren NP Maschinen wie bei NP (oben) nacheinander simulieren , und für co-NP Maschinen deren co-NP Maschinen 
+			\subsubsection*{PH}
+				Dies ist auch klar , denn wenn wir von Maschinen wie die im Satz 56 ausgehen würden und Zertifikate als Rechnung benutzen würden , ist es leicht zu sehen dass die Vereinigung oder Schnitt von zweier Sprachen wiederum in derselben Stufe enthalten ist. 
+		\subsection*{c)}
+
+\end{document}
